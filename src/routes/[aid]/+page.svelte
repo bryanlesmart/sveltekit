@@ -15,6 +15,7 @@
 		type="text"
 		name="title"
 		id="title"
+		value={article?.title}
 		aria-invalid={form?.errors?.fieldErrors ? true : false}
 	/>
 	{#if form?.errors?.fieldErrors.data}
@@ -28,6 +29,7 @@
 		id="content"
 		cols="30"
 		rows="10"
+		value={article?.content}
 	/>
 	{#if form?.errors?.fieldErrors.data}
 		<span aria-invalid="true" class="label-text-alt text-error"

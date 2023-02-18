@@ -14,6 +14,22 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { createTRPCHandle } from 'trpc-sveltekit';
 import { router } from '$lib/trpc/router';
 import { createContext } from '$lib/trpc/t';
+// import {env} from '$lib/utils/env.mjs' import this to check if there's something wrong in .env its working however there's error tsconfig 
+import type { DefaultSession } from 'next-auth';
+
+/**
+ *   Right now can't overwrite the types for User to add id, username etc,
+ *   and also i don't how??
+ */
+declare module 'next-auth' {
+	interface Session extends DefaultSession {
+		user: {
+			id: string;
+			// ...other properties
+			// role: UserRole;
+		} & DefaultSession['user'];
+	}
+}
 
 const customHandle: Handle = async ({ event, resolve }) => {
 	return resolve(event);

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import '@picocss/pico';
 	import { signIn, signOut } from '@auth/sveltekit/client';
 	import { page } from '$app/stores';
 </script>
@@ -14,7 +15,7 @@
 				<img src={$page.data.session.user.image} alt={$page.data.session.user?.name} />
 				<strong>{$page.data.session.user?.name ?? 'User'}</strong><br /><br /><br />
 			</span>
-			<button on:click={() => signOut()} class="button">Sign out</button>
+			<button on:click={() => signOut({ callbackUrl: '/' })} class="button">Sign out</button>
 		{:else}
 			<button on:click={() => signIn('google')}>Sign In with Google</button>
 			<button on:click={() => signIn('discord')}>Sign In with GitHub</button>
