@@ -1,11 +1,18 @@
 import { zfd } from '../../utils/zfd';
 import { createTRPCRouter, publicProcedure, protectedProcedure } from './../t';
-// import { ArticleSchema } from '$lib/schema/generate';
 import { z } from 'zod';
 
 export const articleSchema = zfd.formData({
 	title: zfd.text(),
 	content: zfd.text()
+});
+
+export const articleUpdateSchema = zfd.formData({
+	id: zfd.text(),
+	data: zfd.formData({
+		title: zfd.text(),
+		content: zfd.text()
+	})
 });
 
 export const articleRouter = createTRPCRouter({
@@ -50,6 +57,18 @@ export const articleRouter = createTRPCRouter({
 			return await prisma.article.findUnique({
 				where: {
 					id
+				}
+			});
+		}),
+	updateArticle: protectedProcedure
+		.input(articleUpdateSchema)
+		.mutation(async ({ input, ctx: { prisma } }) => {
+			return await prisma.article.update({
+				where: {
+					id: input.id
+				},
+				data: {
+					...input.data
 				}
 			});
 		})
