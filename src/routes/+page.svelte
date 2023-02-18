@@ -9,10 +9,18 @@
 	$: ({ articles } = data);
 
 	let greet = 'loading';
+	let loading = false;
 
-	const g = async () => {
-		// Type 'Promise<string>' is not assignable to type 'string'. to fix make await
-		greet = await trpc().example.greeting.query();
+	const loadData = async () => {
+		loading = true;
+		let greetingArray = Object.values(await trpc().example.greeting.query());
+		greet = greetingArray.join('');
+		loading = false;
+		/**
+		 * when you click it this is the error
+		 *  TRPCClientError: event.locals.getSession is not a function
+		 * idk why?
+		 */
 	};
 
 	/**
@@ -25,7 +33,14 @@
 
 <div class="grid">
 	<div>
-		<button on:click={g}>Clicke me</button>
+		<a
+			href="#load"
+			role="button"
+			class="btn btn-accent"
+			aria-busy={loading}
+			on:click|preventDefault={loadData}>Load</a
+		>
+		<h1 class="text-green-500">{greet}</h1>
 		<p>{JSON.stringify(greet, null, 2)} FROM SERVER {data.greeting}</p>
 
 		{#if articles.length === 0}

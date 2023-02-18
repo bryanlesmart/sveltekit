@@ -48,7 +48,12 @@ const authOptions: SvelteKitAuthConfig = {
 	callbacks: {
 		session({ session, user }) {
 			if (session.user) {
-				session.user.id = user.id; // add id in User types.d.ts just ctr + click the user
+				session.user.id = user.id;
+				/**
+				 * Property 'id' does not exist on type '{ name?: string | null | undefined; email?: string | null | undefined; image?: string | null | undefined; }'.
+				 *to fix this
+				 * add id in User types.d.ts just ctr + click the user
+				 *  and also GO TO THE app.d.ts or lib/types/next.d.ts  */
 				// eslint-disable-next-line no-self-assign
 				session.user.name = session.user.name;
 			}
@@ -57,10 +62,6 @@ const authOptions: SvelteKitAuthConfig = {
 		}
 	}
 };
-
-// export const authOptions = SvelteKitAuth({
-
-// });
 
 export const handle = sequence(
 	customHandle,
