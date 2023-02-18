@@ -25,14 +25,8 @@ export const actions: Actions = {
 	},
 
 	createArticle: async (event) => {
-		// const { formData, errors } = await validateData(await event.request.formData(), ArticleSchema);
-		// if (errors) {
-		// 	return fail(400, {
-		// 		data: formData,
-		// 		errors: errors.fieldErrors
-		// 	});
-		// }
 		const formData = Object.fromEntries(await event.request.formData());
+
 		try {
 			const article = await router
 				.createCaller(await createContext(event))

@@ -1,5 +1,5 @@
 import { zfd } from '../../utils/zfd';
-import { createTRPCRouter, publicProcedure } from './../t';
+import { createTRPCRouter, publicProcedure, protectedProcedure } from './../t';
 // import { ArticleSchema } from '$lib/schema/generate';
 import { z } from 'zod';
 
@@ -9,13 +9,14 @@ export const articleSchema = zfd.formData({
 });
 
 export const articleRouter = createTRPCRouter({
-	createArticle: publicProcedure
+	createArticle: protectedProcedure
 		.input(articleSchema)
-		.mutation(async ({ ctx: { prisma }, input }) => {
+		.mutation(async ({ ctx: { prisma, session }, input }) => {
 			return await prisma.article.create({
 				data: {
 					title: input.title,
-					content: input.content
+					content: input.content,
+					userId: session.user.id as string
 				}
 			});
 		}),
