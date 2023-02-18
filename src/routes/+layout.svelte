@@ -6,7 +6,7 @@
 <div class="container">
 	<hgroup>
 		<h1>
-			<a href="/"> SvelteKit & Prisma & TRPC & Zod & AUTH JS🔥</a>
+			<a href="/"> SvelteKit & Prisma & TRPC & Zod & AUTH JS🔥 GIT PUSH!!</a>
 		</h1>
 		{#if $page.data.session?.user}
 			<span class="signedInText">
@@ -20,7 +20,9 @@
 			<button on:click={() => signIn('discord')}>Sign In with GitHub</button>
 		{/if}
 
-		<h2>Let's build a basic CRUD application with SvelteKit & Prisma.</h2>
+		<h2>
+			Let's build a basic CRUD application with SvelteKit & Prisma Prisma & TRPC & Zod & AUTH JS🔥
+		</h2>
 	</hgroup>
 	<slot />
 </div>

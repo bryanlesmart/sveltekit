@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import type { PageData, ActionData } from './$types';
 	export let data: PageData;
 	export let form: ActionData;
@@ -6,31 +7,33 @@
 	$: ({ article } = data);
 </script>
 
-<form action="?/updateArticle" method="POST">
+<form action="?/updateArticle" method="POST" use:enhance>
 	<h3>Editing: {article?.title}</h3>
-	<label for="title"> Title </label>
+	<label for="title">Title</label>
+
 	<input
-		aria-invalid={form?.errors?.fieldErrors ? true : false}
 		type="text"
-		id="title"
 		name="title"
-		value={article?.title}
+		id="title"
+		aria-invalid={form?.errors?.fieldErrors ? true : false}
 	/>
-	{#if form?.errors?.fieldErrors}
+	{#if form?.errors?.fieldErrors.data}
 		<span aria-invalid="true" class="label-text-alt text-error"
-			>{form?.errors?.fieldErrors.title}</span
+			>{form?.errors?.fieldErrors.data[0]}</span
 		>
 	{/if}
-	<label for="title"> Content </label>
 	<textarea
 		aria-invalid={form?.errors?.fieldErrors ? true : false}
-		id="content"
 		name="content"
-		rows={5}
-		value={article?.content}
+		id="content"
+		cols="30"
+		rows="10"
 	/>
-	{#if form?.errors?.fieldErrors}
-		<span class="label-text-alt text-error">{form?.errors?.fieldErrors.content}</span>
+	{#if form?.errors?.fieldErrors.data}
+		<span aria-invalid="true" class="label-text-alt text-error"
+			>{form?.errors?.fieldErrors.data[1]}</span
+		>
 	{/if}
+
 	<button type="submit">Update Article</button>
 </form>

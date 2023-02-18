@@ -23,7 +23,13 @@ export const articleRouter = createTRPCRouter({
 				data: {
 					title: input.title,
 					content: input.content,
-					userId: session.user.id as string // i get because idk why can't overwrite/add go to app.d.ts
+					/**
+					 * Type 'string | null | undefined' is not assignable to type 'string | undefined'.
+  						Type 'null' is not assignable to type 'string | undefined'.ts
+						to fix this go to app.d.ts ;
+						to get away typescript complain {as string } i add  this because idk why can't overwrite/add to User Types 
+					 */
+					userId: session.user.id as string
 				}
 			});
 		}),
@@ -34,7 +40,7 @@ export const articleRouter = createTRPCRouter({
 			}
 		});
 	}),
-	deleteById: publicProcedure
+	deleteById: protectedProcedure
 		.input(
 			z.object({
 				id: z.string()

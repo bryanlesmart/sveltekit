@@ -1,15 +1,32 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { PageData, ActionData } from './$types';
+	import { trpc } from '$lib/trpc/client';
 	import { page } from '$app/stores';
 	export let data: PageData;
 	export let form: ActionData;
+
 	$: ({ articles } = data);
+
+	let greet = 'loading';
+
+	const g = async () => {
+		// Type 'Promise<string>' is not assignable to type 'string'. to fix make await
+		greet = await trpc().example.greeting.query();
+	};
+
+	/**
+	 * https://icflorescu.github.io/trpc-sveltekit
+	 * don't to this const greet = trpc().example.greeting.query();
+	 * Make sure you insert in function
+	 * Error: Calling createTRPCClient() on the server requires passing a valid LoadEvent argument
+	 */
 </script>
 
 <div class="grid">
 	<div>
-		<p>FORM THE CLIENT FROM SERVER {data.greeting}</p>
+		<button on:click={g}>Clicke me</button>
+		<p>{JSON.stringify(greet, null, 2)} FROM SERVER {data.greeting}</p>
 
 		{#if articles.length === 0}
 			<h1>Create Articles</h1>
@@ -37,7 +54,6 @@
 		<form method="post" action="?/createArticle" use:enhance>
 			<h3>New Article</h3>
 			<label for="title">Title</label>
-
 			<input
 				type="text"
 				name="title"
