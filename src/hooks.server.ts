@@ -34,7 +34,15 @@ const authOptions: SvelteKitAuthConfig = {
 		// @ts-ignore
 		Google({
 			clientId: GOOGLE_CLIENT_ID,
-			clientSecret: GOOGLE_CLIENT_SECRET
+			clientSecret: GOOGLE_CLIENT_SECRET,
+			//to get the account selection screen each time, add the authorization
+			authorization: {
+				params: {
+					prompt: 'consent',
+					access_type: 'offline',
+					response_type: 'code'
+				}
+			}
 		})
 	],
 	callbacks: {

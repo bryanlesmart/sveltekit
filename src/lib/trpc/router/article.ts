@@ -16,12 +16,16 @@ export const articleRouter = createTRPCRouter({
 				data: {
 					title: input.title,
 					content: input.content,
-					userId: session.user.id as string
+					userId: session.user.id as string // i get because idk why can't overwrite/add go to app.d.ts
 				}
 			});
 		}),
 	getAll: publicProcedure.query(async ({ ctx: { prisma } }) => {
-		return await prisma.article.findMany();
+		return await prisma.article.findMany({
+			include: {
+				user: true
+			}
+		});
 	}),
 	deleteById: publicProcedure
 		.input(
