@@ -7,7 +7,7 @@
 <div class="container">
 	<hgroup>
 		<h1>
-			<a href="/"> SvelteKit & Prisma & TRPC & Zod & AUTH JS🔥 GIT PUSH!!</a>
+			<a href="/"> SvelteKit & Prisma & TRPC & Zod & AUTH JS🔥</a>
 		</h1>
 		{#if $page.data.session?.user}
 			<span class="signedInText">
