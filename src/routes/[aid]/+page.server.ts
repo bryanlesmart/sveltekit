@@ -1,3 +1,6 @@
+import { handleActionErrors } from '$lib/utils';
+import { createContext } from '$lib/trpc/t';
+import { router } from '$lib/trpc/router';
 import { ZodError } from 'zod';
 import { validateData } from '$lib/schema/helpers';
 import { prisma } from '$lib/server/prisma';
@@ -5,21 +8,16 @@ import { error, fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 import { ArticleSchema } from '$lib/schema/generate';
 
-export const load: PageServerLoad = async ({ params }) => {
-	const getArticle = async () => {
-		const article = await prisma.article.findUnique({
-			where: {
-				id: params.aid
-			}
-		});
-		if (!article) {
-			throw error(404, 'Article not found');
-		}
-		return article;
-	};
+export const load: PageServerLoad = async (event) => {
+	/**
+	 * Its working however typescript complaining
+	 * Argument of type '{ articleId: string; }' is not assignable to parameter of type '{ id: string; }'.
+  Object literal may only specify known properties, and 'articleId' does not exist in type '{ id: string; }'.
+	 */
 
+	const articleId = event.params.aid;
 	return {
-		article: getArticle()
+		article: router.createCaller(await createContext(event)).article.getArticle({ articleId })
 	};
 };
 
@@ -43,12 +41,8 @@ export const actions: Actions = {
 					...formData
 				}
 			});
-		} catch (err) {
-			console.error(err);
-			if (err instanceof ZodError) {
-				const { fieldErrors: errors } = err.flatten();
-				return { data: formData, errors };
-			}
+		} catch (e) {
+			return handleActionErrors(e, body)
 		}
 
 		throw redirect(303, '/');

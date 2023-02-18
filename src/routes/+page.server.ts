@@ -28,10 +28,7 @@ export const actions: Actions = {
 		const formData = Object.fromEntries(await event.request.formData());
 
 		try {
-			const article = await router
-				.createCaller(await createContext(event))
-				.article.createArticle(formData);
-			console.log('article', article);
+			await router.createCaller(await createContext(event)).article.createArticle(formData);
 		} catch (e) {
 			console.log('THIS IS ERROR', e);
 			return handleActionErrors(e, formData);

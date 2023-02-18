@@ -39,5 +39,18 @@ export const articleRouter = createTRPCRouter({
 					id
 				}
 			});
+		}),
+	getArticle: protectedProcedure
+		.input(
+			z.object({
+				id: z.string()
+			})
+		)
+		.mutation(async ({ input: { id }, ctx: { prisma } }) => {
+			return await prisma.article.findUnique({
+				where: {
+					id
+				}
+			});
 		})
 });
