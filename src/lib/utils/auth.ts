@@ -31,6 +31,7 @@ export const authOptions: SvelteKitAuthConfig = {
 			}
 		})
 	],
+
 	callbacks: {
 		session({ session, user }) {
 			if (session.user) {

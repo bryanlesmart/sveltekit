@@ -3,16 +3,13 @@
 	import type { PageData, ActionData } from './$types';
 	export let data: PageData;
 	export let form: ActionData;
-
 	console.log(form?.errors?.fieldErrors.data);
-
 	$: ({ article } = data);
 </script>
 
 <form action="?/updateArticle" method="POST" use:enhance>
 	<h3>Editing: {article?.title}</h3>
 	<label for="title">Title</label>
-
 	<input
 		type="text"
 		name="title"
@@ -38,6 +35,5 @@
 			>{form?.errors?.fieldErrors.data[0]}</span
 		>
 	{/if}
-
 	<button type="submit">Update Article</button>
 </form>
