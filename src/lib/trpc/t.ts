@@ -3,8 +3,12 @@ import { prisma } from '$lib/server/prisma';
 import type { RequestEvent } from '@sveltejs/kit';
 import { initTRPC, type inferAsyncReturnType } from '@trpc/server';
 
+/**
+ * The ?. operator is known as the optional chaining operator and is used to avoid throwing an error if the function does not exist or is undefined. In this case,
+ */
+
 export async function createContext(event: RequestEvent) {
-	const session = await event.locals.getSession();
+	const session = await event.locals.getSession?.();
 	return {
 		prisma,
 		session

@@ -90,18 +90,3 @@ if (!!process.env.SKIP_ENV_VALIDATION == false) {
 }
 
 export { env };
-
-/**
- 
-
-
- REFERENCE  IF YOU WANNA USE IT!!
- import {
-	DISCORD_CLIENT_ID,
-	DISCORD_CLIENT_SECRET,
-	GOOGLE_CLIENT_ID,
-	GOOGLE_CLIENT_SECRET
-} from '$env/static/private';
-    
-	
- */

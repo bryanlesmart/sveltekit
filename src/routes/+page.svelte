@@ -4,11 +4,24 @@
 	import { page } from '$app/stores';
 	export let data: PageData;
 	export let form: ActionData;
-
 	$: ({ articles } = data);
+
+	import { trpc } from '$lib/trpc/client';
+	let gr = '';
+
+	/**
+	 * let ar = trpc().article.getAll.query();
+	 * Its not error or stop the server but
+	 * Avoid calling `fetch` eagerly during server side rendering — put your `fetch` calls inside `onMount` or a `load` function instead
+	 */
+	const g = async () => {
+		gr = await trpc().example.greeting.query();
+		console.log('greet:', gr);
+	};
 </script>
 
 <div class="grid">
+	<button on:click={g}>click {gr}</button>
 	<div>
 		{#if articles.length === 0}
 			<h1>Create Articles</h1>

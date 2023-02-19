@@ -1,5 +1,4 @@
-import { publicProcedure } from '../t';
-import { createTRPCRouter } from '../t';
+import { createTRPCRouter, publicProcedure } from '../t';
 
 export const exampleRouter = createTRPCRouter({
 	greeting: publicProcedure.query(() => {
