@@ -17,9 +17,11 @@
 				<ul class="grid">
 					<li><a href="/">Home</a></li>
 					<li><a href="/dashboard">Dashboard</a></li>
-					<li><a href="/dashboard/admin">Admin</a></li>
+					<li><a href="/dashboard/article">Article</a></li>
+					<li>
+						<a href="/" on:click={() => signOut({ callbackUrl: '/' })}>Sign Out</a>
+					</li>
 				</ul>
-				<button on:click={() => signOut({ callbackUrl: '/' })} class="button">Sign out</button>
 			</div>
 		</div>
 	</div>
