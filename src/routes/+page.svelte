@@ -21,11 +21,11 @@
 </script>
 
 <div class="grid">
-	<button on:click={g}>click {gr}</button>
 	<div>
 		{#if articles.length === 0}
 			<h1>Create Articles</h1>
 			<p>Create your own articles join us</p>
+			<button on:click={g}>click {gr}</button>
 		{/if}
 		{#each articles as { title, content, id, user, userId }}
 			<h2>{title}</h2>

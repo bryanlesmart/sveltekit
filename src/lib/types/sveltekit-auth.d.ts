@@ -8,8 +8,4 @@ declare module '@auth/sveltekit/node_modules/@auth/core/types' {
 			id: string;
 		} & DefaultSession['user'];
 	}
-
-	// interface User extends OGUser {
-	// 	settings: UserSettings;
-	// }
 }

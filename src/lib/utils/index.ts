@@ -19,14 +19,3 @@ export function handleActionErrors(e: unknown, body: unknown = {}) {
 		message: 'An unexpected error occurred. Please try again later.'
 	});
 }
-
-/** 
- * Prisma zod-form-data , create your schema the use zod-form-data https://www.npmjs.com/package/zod-form-data?activeTab=readme
- * Validation helpers for zod specifically for parsing FormData or URLSearchParams.
- * const body = articleSchema.parse(await event.request.formData());
-    await prisma.article.create({
-			// 	data: {
-			// 		...body
-			// 	}
-			// });
-	*/

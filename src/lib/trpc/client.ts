@@ -1,5 +1,4 @@
 import type { AppRouter } from './router';
-import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import { createTRPCProxyClient, httpBatchLink, loggerLink } from '@trpc/client';
 
 /**
@@ -31,13 +30,3 @@ export function trpc() {
 	});
 	return client;
 }
-/**
- * Inference helper for inputs
- * @example type HelloInput = RouterInputs['example']['hello']
- **/
-export type RouterInputs = inferRouterInputs<AppRouter>;
-/**
- * Inference helper for outputs
- * @example type HelloOutput = RouterOutputs['example']['hello']
- **/
-export type RouterOutputs = inferRouterOutputs<AppRouter>;

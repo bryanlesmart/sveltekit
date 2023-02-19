@@ -1,19 +1,6 @@
-import { zfd } from '../../utils/zfd';
 import { createTRPCRouter, publicProcedure, protectedProcedure } from './../t';
 import { z } from 'zod';
-
-export const articleSchema = zfd.formData({
-	title: zfd.text(),
-	content: zfd.text()
-});
-
-export const articleUpdateSchema = zfd.formData({
-	id: zfd.text(),
-	data: zfd.formData({
-		title: zfd.text(),
-		content: zfd.text()
-	})
-});
+import { articleSchema, articleUpdateSchema } from '$lib/schema/schema';
 
 export const articleRouter = createTRPCRouter({
 	createArticle: protectedProcedure
