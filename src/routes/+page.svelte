@@ -25,14 +25,14 @@
 <button on:click={g} aria-busy={loading}>click me {gr}</button>
 <div class="grid">
 	<div>
+		{#if articles.length === 0}
+			<h1>Create Articles</h1>
+			<p>Create your own articles join us</p>
+		{/if}
 		<hr />
-		<details>
-			<summary>Create Article</summary>
-			{#if articles.length === 0}
-				<h1>Create Articles</h1>
-				<p>Create your own articles join us</p>
-			{/if}
-			{#if $page.data.session?.user}
+		{#if $page.data.session?.user}
+			<details>
+				<summary>Create Article</summary>
 				<form method="post" action="?/createArticle" use:enhance>
 					<h3>New Article</h3>
 					<label for="title">Title</label>
@@ -61,8 +61,8 @@
 					{/if}
 					<button type="submit">Add article</button>
 				</form>
-			{/if}
-		</details>
+			</details>
+		{/if}
 
 		<h1>Articles Feed</h1>
 		{#each articles as { title, content, id, user, userId }}
@@ -76,7 +76,7 @@
 					<form action="?/deleteArticle&id={id}" method="post">
 						<button class="outline secondary">Delete Article</button>
 					</form>
-					<a href="/{id}" role="button" class="outline constrast" style="width: 100%;"
+					<a href="/article/{id}" role="button" class="outline constrast" style="width: 100%;"
 						>Edit Article</a
 					>
 				{/if}
