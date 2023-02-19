@@ -22,6 +22,6 @@ export const actions: Actions = {
 			return handleActionErrors(e, body);
 		}
 
-		throw redirect(303, '/');
+		throw redirect(303, '/dashboard/article');
 	}
 };
