@@ -3,17 +3,13 @@ import type { Handle } from '@sveltejs/kit';
 import { SvelteKitAuth, type SvelteKitAuthConfig } from '@auth/sveltekit';
 import DiscordProvider from '@auth/core/providers/discord';
 import Google from '@auth/core/providers/google';
-import {
-	DISCORD_CLIENT_ID,
-	DISCORD_CLIENT_SECRET,
-	GOOGLE_CLIENT_ID,
-	GOOGLE_CLIENT_SECRET
-} from '$env/static/private';
+
 import { sequence } from '@sveltejs/kit/hooks';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { createTRPCHandle } from 'trpc-sveltekit';
 import { router } from '$lib/trpc/router';
 import { createContext } from '$lib/trpc/t';
+import { env } from '$lib/utils/env..mjs';
 
 const customHandle: Handle = async ({ event, resolve }) => {
 	return resolve(event);
@@ -27,14 +23,21 @@ const authOptions: SvelteKitAuthConfig = {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		DiscordProvider({
-			clientId: DISCORD_CLIENT_ID,
-			clientSecret: DISCORD_CLIENT_SECRET
+			clientId: env.DISCORD_CLIENT_ID,
+			clientSecret: env.DISCORD_CLIENT_SECRET,
+			authorization: {
+				params: {
+					prompt: 'consent',
+					access_type: 'offline',
+					response_type: 'code'
+				}
+			}
 		}),
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore use .env.SOMETHING went import { env } from '$lib/utils/env.mjs
+		// @ts-ignore use
 		Google({
-			clientId: GOOGLE_CLIENT_ID,
-			clientSecret: GOOGLE_CLIENT_SECRET,
+			clientId: env.GOOGLE_CLIENT_ID,
+			clientSecret: env.GOOGLE_CLIENT_SECRET,
 			//to get the account selection screen each time, add the authorization
 			authorization: {
 				params: {
@@ -49,11 +52,6 @@ const authOptions: SvelteKitAuthConfig = {
 		session({ session, user }) {
 			if (session.user) {
 				session.user.id = user.id;
-				/**
-				 * Property 'id' does not exist on type '{ name?: string | null | undefined; email?: string | null | undefined; image?: string | null | undefined; }'.
-				 *to fix this
-				 * add id in User types.d.ts just ctr + click the user
-				 *  and also GO TO THE app.d.ts or lib/types/next.d.ts  */
 				// eslint-disable-next-line no-self-assign
 				session.user.name = session.user.name;
 			}

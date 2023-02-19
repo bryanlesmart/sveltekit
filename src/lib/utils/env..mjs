@@ -67,7 +67,7 @@ if (!!process.env.SKIP_ENV_VALIDATION == false) {
 
 	if (parsed.success === false) {
 		console.error('❌ Invalid environment variables:', parsed.error.flatten().fieldErrors);
-		throw new Error('Invalid environment One variables');
+		throw new Error('Invalid environment  variables');
 	}
 
 	/** @type z.infer<merged>
@@ -92,30 +92,16 @@ if (!!process.env.SKIP_ENV_VALIDATION == false) {
 export { env };
 
 /**
- * Cannot write file when i copy env.mjs however its working when there' empty in .env credentials
- * [{
-	"resource": "/c:/Users/User/3D Objects/my-app/tsconfig.json",
-	"owner": "typescript",
-	"severity": 8,
-	"message": "Cannot write file 'c:/Users/User/3D Objects/my-app/src/lib/utils/env..mjs' because it would overwrite input file.",
-	"source": "ts",
-	"startLineNumber": 1,
-	"startColumn": 1,
-	"endLineNumber": 1,
-	"endColumn": 2
-}]
- * 
-[{
-	"resource": "/c:/Users/User/3D Objects/my-app/tsconfig.json",
-	"owner": "_generated_diagnostic_collection_name_#4",
-	"code": "768",
-	"severity": 4,
-	"message": "Problems loading reference 'https://json.schemastore.org/tsconfig': Unable to load schema from 'https://json.schemastore.org/tsconfig': getaddrinfo ENOTFOUND json.schemastore.org.",
-	"startLineNumber": 1,
-	"startColumn": 1,
-	"endLineNumber": 1,
-	"endColumn": 2
-}]
+ 
+
+
+ REFERENCE  IF YOU WANNA USE IT!!
+ import {
+	DISCORD_CLIENT_ID,
+	DISCORD_CLIENT_SECRET,
+	GOOGLE_CLIENT_ID,
+	GOOGLE_CLIENT_SECRET
+} from '$env/static/private';
     
 	
  */
