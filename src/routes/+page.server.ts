@@ -25,13 +25,12 @@ export const actions: Actions = {
 	},
 
 	createArticle: async (event) => {
-		const formData = Object.fromEntries(await event.request.formData());
+		const body = Object.fromEntries(await event.request.formData());
 
 		try {
-			await router.createCaller(await createContext(event)).article.createArticle(formData);
+			await router.createCaller(await createContext(event)).article.createArticle(body);
 		} catch (e) {
-			console.log('THIS IS ERROR', e);
-			return handleActionErrors(e, formData);
+			return handleActionErrors(e, body);
 		}
 	}
 };

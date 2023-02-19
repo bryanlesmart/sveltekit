@@ -7,8 +7,8 @@ export async function createContext(event: RequestEvent) {
 	const session = await event.locals.getSession();
 	return {
 		prisma,
-		session 
-	};	
+		session
+	};
 }
 
 export type Context = inferAsyncReturnType<typeof createContext>;
