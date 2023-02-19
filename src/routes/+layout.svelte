@@ -17,6 +17,7 @@
 				<img src={$page.data.session.user.image} alt={$page.data.session.user?.name} />
 				<strong>{$page.data.session.user?.name ?? 'User'}</strong><br /><br /><br />
 				<div>
+					<a href="/">Home</a>
 					<a href="/dashboard">Dashboard</a>
 					<a href="/dashboard/admin">Admin</a>
 				</div>
