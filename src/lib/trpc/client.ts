@@ -16,7 +16,7 @@ import { createTRPCProxyClient, httpBatchLink, loggerLink } from '@trpc/client';
 
 const getBaseUrl = () => {
 	if (typeof window !== 'undefined') return '';
-	return `http://localhost:5173`;
+	return `http://localhost:${process.env.PORT ?? 5173}`;
 };
 
 export function trpc() {

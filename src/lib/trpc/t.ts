@@ -4,7 +4,7 @@ import type { RequestEvent } from '@sveltejs/kit';
 import { initTRPC, type inferAsyncReturnType } from '@trpc/server';
 
 /**
- * The ?. operator is known as the optional chaining operator and is used to avoid throwing an error if the function does not exist or is undefined. In this case,
+ * The ?. operator is known as the optional chaining operator and is used to avoid throwing an error if the function does not exist or is undefined.
  */
 
 export async function createContext(event: RequestEvent) {

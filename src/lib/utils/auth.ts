@@ -14,14 +14,7 @@ export const authOptions: SvelteKitAuthConfig = {
 		// @ts-ignore
 		DiscordProvider({
 			clientId: env.DISCORD_CLIENT_ID,
-			clientSecret: env.DISCORD_CLIENT_SECRET,
-			authorization: {
-				params: {
-					prompt: 'consent',
-					access_type: 'offline',
-					response_type: 'code'
-				}
-			}
+			clientSecret: env.DISCORD_CLIENT_SECRET
 		}),
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore use
@@ -41,6 +34,7 @@ export const authOptions: SvelteKitAuthConfig = {
 	callbacks: {
 		session({ session, user }) {
 			if (session.user) {
+				//check the types folder [sveltekit-auth.d.t] to overwrite the DefaultSession type
 				session.user.id = user.id;
 				// eslint-disable-next-line no-self-assign
 				session.user.name = session.user.name;
