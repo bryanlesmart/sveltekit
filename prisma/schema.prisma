@@ -16,11 +16,13 @@ datasource db {
 }
 
 model Article {
-  id      String @id @default(cuid())
-  title   String
-  content String
-  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  String
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  createAt  DateTime @default(now())
+  updatedAT DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
 }
 
 model Account {
@@ -62,6 +64,9 @@ model User {
   accounts      Account[]
   sessions      Session[]
   articles      Article[]
+
+  createAt  DateTime @default(now())
+  updatedAT DateTime @updatedAt
 
   @@map("users")
 }

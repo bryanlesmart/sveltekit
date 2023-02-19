@@ -4,6 +4,8 @@
 	export let data: PageData;
 	export let form: ActionData;
 
+	console.log(form?.errors?.fieldErrors.data);
+
 	$: ({ article } = data);
 </script>
 
@@ -16,7 +18,7 @@
 		name="title"
 		id="title"
 		value={article?.title}
-		aria-invalid={form?.errors?.fieldErrors ? true : false}
+		aria-invalid={form?.errors?.fieldErrors.data ? true : false}
 	/>
 	{#if form?.errors?.fieldErrors.data}
 		<span aria-invalid="true" class="label-text-alt text-error"
@@ -24,7 +26,7 @@
 		>
 	{/if}
 	<textarea
-		aria-invalid={form?.errors?.fieldErrors ? true : false}
+		aria-invalid={form?.errors?.fieldErrors.data ? true : false}
 		name="content"
 		id="content"
 		cols="30"
@@ -33,7 +35,7 @@
 	/>
 	{#if form?.errors?.fieldErrors.data}
 		<span aria-invalid="true" class="label-text-alt text-error"
-			>{form?.errors?.fieldErrors.data[1]}</span
+			>{form?.errors?.fieldErrors.data[0]}</span
 		>
 	{/if}
 

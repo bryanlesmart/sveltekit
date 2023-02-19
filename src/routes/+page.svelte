@@ -1,50 +1,18 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { PageData, ActionData } from './$types';
-	import { trpc } from '$lib/trpc/client';
 	import { page } from '$app/stores';
 	export let data: PageData;
 	export let form: ActionData;
 
 	$: ({ articles } = data);
-
-	let greet = 'loading';
-	let loading = false;
-
-	const loadData = async () => {
-		loading = true;
-		let greetingArray = Object.values(await trpc().example.greeting.query());
-		greet = greetingArray.join('');
-		loading = false;
-		/**
-		 * when you click it this is the error
-		 *  TRPCClientError: event.locals.getSession is not a function
-		 * idk why?
-		 */
-	};
-
-	/**
-	 * https://icflorescu.github.io/trpc-sveltekit
-	 * don't to this const greet = trpc().example.greeting.query();
-	 * Make sure you insert in function
-	 * Error: Calling createTRPCClient() on the server requires passing a valid LoadEvent argument
-	 */
 </script>
 
 <div class="grid">
 	<div>
-		<a
-			href="#load"
-			role="button"
-			class="btn btn-accent"
-			aria-busy={loading}
-			on:click|preventDefault={loadData}>Load</a
-		>
-		<h1 class="text-green-500">{greet}</h1>
-		<p>{JSON.stringify(greet, null, 2)} FROM SERVER {data.greeting}</p>
-
 		{#if articles.length === 0}
 			<h1>Create Articles</h1>
+			<p>Create your own articles join us</p>
 		{/if}
 		{#each articles as { title, content, id, user, userId }}
 			<h2>{title}</h2>
@@ -73,15 +41,15 @@
 				type="text"
 				name="title"
 				id="title"
-				aria-invalid={form?.errors?.fieldErrors ? true : false}
+				aria-invalid={form?.errors?.fieldErrors.title ? true : false}
 			/>
-			{#if form?.errors?.fieldErrors}
+			{#if form?.errors}
 				<span aria-invalid="true" class="label-text-alt text-error"
-					>{form?.errors?.fieldErrors.title}</span
+					>{form?.errors?.fieldErrors.title ?? ''}</span
 				>
 			{/if}
 			<textarea
-				aria-invalid={form?.errors?.fieldErrors ? true : false}
+				aria-invalid={form?.errors?.fieldErrors.content ? true : false}
 				name="content"
 				id="content"
 				cols="30"
@@ -89,7 +57,7 @@
 			/>
 			{#if form?.errors?.fieldErrors}
 				<span aria-invalid="true" class="label-text-alt text-error"
-					>{form?.errors?.fieldErrors.content}</span
+					>{form?.errors?.fieldErrors.content ?? ''}</span
 				>
 			{/if}
 			<button type="submit">Add article</button>

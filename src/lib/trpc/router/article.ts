@@ -23,13 +23,7 @@ export const articleRouter = createTRPCRouter({
 				data: {
 					title: input.title,
 					content: input.content,
-					/**
-					 * Type 'string | null | undefined' is not assignable to type 'string | undefined'.
-  						Type 'null' is not assignable to type 'string | undefined'.ts
-						to fix this go to app.d.ts ;
-						to get away typescript complain {as string } i add  this because idk why can't overwrite/add to User Types 
-					 */
-					userId: session.user.id as string
+					userId: session.user.id
 				}
 			});
 		}),
@@ -37,7 +31,8 @@ export const articleRouter = createTRPCRouter({
 		return await prisma.article.findMany({
 			include: {
 				user: true
-			}
+			},
+			orderBy: { createAt: 'desc' }
 		});
 	}),
 	deleteById: protectedProcedure

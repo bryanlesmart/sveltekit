@@ -4,6 +4,10 @@
 	import { page } from '$app/stores';
 </script>
 
+<svelte:head>
+	<title>Sveltekit</title>
+</svelte:head>
+
 <div class="container">
 	<hgroup>
 		<h1>
