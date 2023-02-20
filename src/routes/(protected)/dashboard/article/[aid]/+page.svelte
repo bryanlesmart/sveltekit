@@ -3,10 +3,10 @@
 	import type { PageData, ActionData } from './$types';
 	export let data: PageData;
 	export let form: ActionData;
-	console.log(form?.errors?.fieldErrors.data);
 	$: ({ article } = data);
 </script>
 
+<pre>{JSON.stringify(form, null, 2)}</pre>
 <form action="?/updateArticle" method="POST" use:enhance>
 	<h3>Editing: {article?.title}</h3>
 	<label for="title">Title</label>

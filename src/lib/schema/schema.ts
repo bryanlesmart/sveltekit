@@ -2,15 +2,15 @@ import { zfd } from '$lib/utils/zfd';
 import { z } from 'zod';
 
 export const articleSchema = zfd.formData({
-	title: zfd.text(),
-	content: zfd.text()
+	title: zfd.text(z.string({ required_error: 'Title is required.' }).min(2)),
+	content: zfd.text(z.string({ required_error: 'Content is required.' }).min(2))
 });
 
 export const articleUpdateSchema = zfd.formData({
 	id: zfd.text(),
 	data: zfd.formData({
-		title: zfd.text(),
-		content: zfd.text()
+		title: zfd.text(z.string({ required_error: 'Name is required.' }).min(2)),
+		content: zfd.text(z.string({ required_error: 'Name is required.' }).min(2))
 	})
 });
 

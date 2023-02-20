@@ -4,12 +4,12 @@ import { router } from '$lib/trpc/router';
 import { fail, redirect } from '@sveltejs/kit';
 import { handleActionErrors } from '$lib/utils';
 
-export const load = (async (event) => {
+export const load: PageServerLoad = async (event) => {
 	await event.parent();
 	return {
 		articles: router.createCaller(await createContext(event)).article.getAll()
 	};
-}) satisfies PageServerLoad;
+};
 
 export const actions: Actions = {
 	deleteArticle: async (event) => {
