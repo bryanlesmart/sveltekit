@@ -1,10 +1,12 @@
 <script lang="ts">
-	import { signIn } from '@auth/sveltekit/client';
+	import OauthProvider from '$lib/components/OauthProvider.svelte';
 	import type { ActionData } from './$types';
 	export let form: ActionData;
 </script>
 
 <pre>{JSON.stringify(form, null, 2)}</pre>
+<br />
+<h1>Register</h1>
 
 <form action="?/register" method="post">
 	<label for="name">
@@ -29,5 +31,4 @@
 <hr />
 OR
 
-<button on:click={() => signIn('google')}>Sign In with Google</button>
-<button on:click={() => signIn('discord')}>Sign In with GitHub</button>
+<OauthProvider />
